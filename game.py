@@ -14,6 +14,9 @@ class Game(object):
         self.score = 0
         self.spawn()
 
+    def move(self, m):
+        self.piece.move(m[0], m[1])
+
     def spawn(self):
         assert self.piece is None
         ix = self.lcg.gen()
