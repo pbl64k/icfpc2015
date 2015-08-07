@@ -2,6 +2,7 @@ from piece import *
 from ui import *
 
 # TODO exclude repeat positions
+# TODO proper placement on spawn
 
 class Game(object):
     def __init__(self, id, pieces, board, lcg):
