@@ -47,4 +47,12 @@ def untranslate(pos):
     sh = y / 2
     return x + sh, y
 
+def add(pos1, pos2):
+    return pos1[0] + pos2[0], pos1[1] + pos2[1]
+
+def sub(pos1, pos2):
+    return pos1[0] - pos2[0], pos1[1] - pos2[1]
+
+def scale(pos, k):
+    return pos[0] * k, pos[1] * k
 
