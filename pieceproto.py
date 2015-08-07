@@ -5,8 +5,13 @@ class PieceProto(object):
         self.pivot = translate((data['pivot']['x'], data['pivot']['y']))
         mems = map(lambda x: sub(x, self.pivot), map(translate, map(lambda x: (x['x'], x['y']), data['members'])))
         self.mems = []
+        seen = set()
         for ix in range(6):
+            tmems = tuple(sorted(mems))
+            if tmems in seen:
+                break
             self.mems.append(mems)
+            seen.add(tmems)
             mems = map(lambda x: mem_rot(x, True), mems)
         orig_pos = map(untranslate, self.mems[0])
         orig_x = map(lambda x: x[0], orig_pos)
