@@ -1,6 +1,6 @@
 
 def rot_cw_x(x):
-    return x, x
+    return 0, x
 
 def rot_cw_y(y):
     return -y, y
@@ -9,7 +9,7 @@ def rot_ccw_x(x):
     return x, -x
 
 def rot_ccw_y(y):
-    return y, y
+    return -y, 0
 
 def rot_cw_xy(x, y):
     x1, y1 = rot_cw_x(x)
@@ -36,4 +36,15 @@ def mem_rot(pos, cw):
     if k not in rot_cache:
         rot_cache[k] = rot_cw_pos(pos) if cw else rot_ccw_pos(pos)
     return rot_cache[k]
+
+def translate(pos):
+    x, y = pos
+    sh = y / 2
+    return x - sh, y
+
+def untranslate(pos):
+    x, y = pos
+    sh = y / 2
+    return x + sh, y
+
 
