@@ -1,7 +1,6 @@
 from piece import *
 from ui import *
 
-# TODO exclude repeat positions
 # TODO proper placement on spawn
 
 class Game(object):
@@ -18,17 +17,22 @@ class Game(object):
     def move(self, m):
         f, pc = self.piece.move(self.b, m[0], m[1])
         if f:
+            if pc.id() in self.banned:
+                return False
             self.piece = pc
+            self.banned.add(pc.id())
         else:
             self.b.merge(pc)
             self.piece = None
             self.spawn()
+        return True
 
     def spawn(self):
         assert self.piece is None
         ix = self.lcg.gen()
         piece = self.pcs[ix % len(self.pcs)]
         self.piece = Piece(piece, (3, 3))
+        self.banned = set()
 
     def repr(self):
         r = self.b.repr()

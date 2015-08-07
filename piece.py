@@ -19,3 +19,7 @@ class Piece(object):
 
     def validp(self, b):
         return all(map(lambda x: b.validp(x), self.coords()))
+
+    def id(self):
+        return self.pos, self.r
+
