@@ -11,5 +11,6 @@ b = Board(data['width'], data['height'], data['filled'])
 b.display()
 
 pcs = map(PieceProto, data['units'])
-print pcs
+for pc in pcs:
+    print pc.mems
 
