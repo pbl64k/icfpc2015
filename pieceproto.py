@@ -8,4 +8,11 @@ class PieceProto(object):
         for ix in range(6):
             self.mems.append(mems)
             mems = map(lambda x: mem_rot(x, True), mems)
+        orig_pos = map(untranslate, self.mems[0])
+        orig_x = map(lambda x: x[0], orig_pos)
+        orig_y = map(lambda x: x[1], orig_pos)
+        self.min_x = min(orig_x)
+        self.max_x = max(orig_x)
+        self.min_y = min(orig_y)
+        self.max_y = max(orig_y)
 
