@@ -1,17 +1,10 @@
-
-import copy
-
 class Game(object):
-    def __init__(self, id, units, board, lcg):
+    def __init__(self, id, pieces, board, lcg):
         self.id = id
-        self.units = units
+        self.pcs = pieces
         self.b = board
         self.lcg = lcg
-        self.unit = None
+        self.piece = None
         self.banned = set()
         self.score = 0
-
-    def spawn(self):
-        assert self.unit is None
-        self.unit = Piece(self.units[lcg.gen()])
 
