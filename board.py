@@ -7,19 +7,6 @@ class Board(object):
         for pos in f:
             self.b[pos['x']][pos['y']] = True
 
-    def display(self):
-        f = False
-        l = ''
-        for y in range(self.h):
-            if f: l += ' '
-            f = not f
-            l += '|'
-            for x in range(self.w):
-                if self.b[x][y]:
-                    l += '*'
-                else:
-                    l += ' '
-                l += '|'
-            l += '\n'
-        print l
+    def repr(self):
+        return map(lambda x: map(lambda y: '*' if y else ' ', x), self.b)
 

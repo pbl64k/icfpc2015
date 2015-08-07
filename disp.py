@@ -3,12 +3,13 @@ import sys
 
 from board import *
 from pieceproto import *
+from ui import *
 
 f = open(sys.argv[1], 'r')
 data = json.loads(f.read())
 
 b = Board(data['width'], data['height'], data['filled'])
-b.display()
+display(b.w, b.h, b.repr())
 
 pcs = map(PieceProto, data['units'])
 for pc in pcs:
