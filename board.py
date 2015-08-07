@@ -14,3 +14,12 @@ class Board(object):
     def display(self):
         display(self.w, self.h, self.repr())
 
+    def validp(self, pos):
+        x, y = pos
+        return x >= 0 and x < self.w and y >= 0 and y < self.h and not self.b[x][y]
+
+    def merge(self, pc):
+        for x, y in pc.coords():
+            assert not self.b[x][y]
+            self.b[x][y] = True
+

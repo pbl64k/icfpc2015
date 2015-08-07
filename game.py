@@ -15,7 +15,13 @@ class Game(object):
         self.spawn()
 
     def move(self, m):
-        self.piece.move(m[0], m[1])
+        f, pc = self.piece.move(self.b, m[0], m[1])
+        if f:
+            self.piece = pc
+        else:
+            self.b.merge(pc)
+            self.piece = None
+            self.spawn()
 
     def spawn(self):
         assert self.piece is None
@@ -27,8 +33,10 @@ class Game(object):
         r = self.b.repr()
         if self.piece is not None:
             pos = untranslate(self.piece.pos)
-            r[pos[0]][pos[1]] = '+'
+            if self.b.validp(pos):
+                r[pos[0]][pos[1]] = '+'
             for x, y in self.piece.coords():
+                print x, y
                 if r[x][y] == '+':
                     r[x][y] = '0'
                 else:
