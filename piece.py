@@ -6,6 +6,10 @@ class Piece(object):
         self.pos = pos
         self.r = 0
 
+    def coords(self):
+        for pos in self.p[self.r]:
+            yield untranslate(add(pos, self.pos))
+
     def w(self):
         self.pos = sub(self.pos, (1, 0))
 

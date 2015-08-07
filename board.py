@@ -1,3 +1,4 @@
+from ui import *
 
 class Board(object):
     def __init__(self, w, h, f):
@@ -9,4 +10,7 @@ class Board(object):
 
     def repr(self):
         return map(lambda x: map(lambda y: '*' if y else ' ', x), self.b)
+
+    def display(self):
+        display(self.w, self.h, self.repr())
 

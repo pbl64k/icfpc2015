@@ -9,7 +9,7 @@ f = open(sys.argv[1], 'r')
 data = json.loads(f.read())
 
 b = Board(data['width'], data['height'], data['filled'])
-display(b.w, b.h, b.repr())
+b.display()
 
 pcs = map(PieceProto, data['units'])
 for pc in pcs:
