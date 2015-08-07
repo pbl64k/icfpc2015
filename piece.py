@@ -7,24 +7,28 @@ class Piece(object):
         self.r = 0
 
     def coords(self):
-        for pos in self.p[self.r]:
+        for pos in self.p.mems[self.r]:
             yield untranslate(add(pos, self.pos))
 
+    def move(self, dpos, r):
+        self.pos = add(self.pos, dpos)
+        self.r = (self.r + r) % len(self.p.mems)
+
     def w(self):
-        self.pos = sub(self.pos, (1, 0))
+        self.move((-1, 0), 0)
 
     def e(self):
-        self.pos = add(self.pos, (1, 0))
+        self.move((1, 0), 0)
 
     def sw(self):
-        self.pos = add(self.pos, (-1, 1))
+        self.move((-1, 1), 0)
 
     def se(self):
-        self.pos = add(self.pos, (0, 1))
+        self.move((0, 1), 0)
 
     def cw(self):
-        self.r = (self.r + 1) % len(self.p.mems)
+        self.move((0, 0), 1)
 
     def ccw(self):
-        self.r = (self.r - 1) % len(self.p.mems)
+        self.move((0, 0), -1)
 
