@@ -28,7 +28,7 @@ class Game(object):
                 g.score = 0
                 return False, g
             g.piece = pc
-            g.banned = g.banned | frozenset(pc.id())
+            g.banned = g.banned | frozenset([pc.id()])
         else:
             g.b = copy.copy(g.b)
             g.b.merge(pc)

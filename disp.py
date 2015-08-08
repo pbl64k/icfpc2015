@@ -1,18 +1,13 @@
-import json
 import sys
 
-from board import *
-from pieceproto import *
-from ui import *
+from konstruckt import *
 
-f = open(sys.argv[1], 'r')
-data = json.loads(f.read())
+for g in konstruckt(sys.argv[1]):
+    g.b.display()
+    
+    for pc in g.pcs:
+        print pc.min_x, pc.max_x, pc.min_y, pc.max_y
+        print pc.mems
 
-b = Board(data['width'], data['height'], data['filled'])
-b.display()
-
-pcs = map(PieceProto, data['units'])
-for pc in pcs:
-    print pc.min_x, pc.max_x, pc.min_y, pc.max_y
-    print pc.mems
+    break
 
