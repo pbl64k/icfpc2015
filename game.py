@@ -168,8 +168,9 @@ class Game(object):
 
     def display(self):
         if self.dbg:
-            print self.piece.id()
-            print self.banned
+            #print self.piece.id()
+            #print self.banned
+            print
             print display(self.b.w, self.b.h, self.repr())
             print '*** FAIL! *** Score:' if self.fail else 'Score:', self.score
 
