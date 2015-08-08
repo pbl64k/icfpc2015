@@ -15,7 +15,7 @@ data = json.loads(f.read())
 b = Board(data['width'], data['height'], data['filled'])
 pcs = map(PieceProto, data['units'])
 lcg = Lcg(data['sourceSeeds'][0])
-game = Game(None, pcs, b, lcg)
+game = Game(None, pcs, b, lcg, data['sourceLength'])
 
 kmap = {'u': ((-1, 0), 0), \
     'i': ((0, 0), 1), \
@@ -30,4 +30,5 @@ while True:
     c = getch()
     if not game.move(kmap[c]):
         break
+game.display()
 

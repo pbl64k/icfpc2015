@@ -4,11 +4,13 @@ from piece import *
 from ui import *
 
 class Game(object):
-    def __init__(self, id, pieces, board, lcg):
+    def __init__(self, id, pieces, board, lcg, sln):
         self.id = id
         self.pcs = pieces
         self.b = board
         self.lcg = lcg
+        self.sln = sln
+        self.spawned = 0
         self.piece = None
         self.banned = set()
         self.score = 0
@@ -34,7 +36,8 @@ class Game(object):
             self.score += sc
             self.ls_old = remd
             self.piece = None
-            self.spawn()
+            if not self.spawn():
+                return False
         return True
 
     def spawn(self):
@@ -45,6 +48,10 @@ class Game(object):
         off = (self.b.w - sz) / 2
         self.piece = Piece(piece, (off - piece.min_x - 1, -piece.min_y))
         self.banned = set([self.piece.id()])
+        self.spawned += 1
+        if self.spawned > self.sln:
+            return False
+        return True
 
     def repr(self):
         r = self.b.repr()
