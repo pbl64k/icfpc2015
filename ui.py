@@ -23,5 +23,5 @@ def display(w, h, view):
         else:
             l += ' /'
         l += '\n'
-    print l
+    return l
 

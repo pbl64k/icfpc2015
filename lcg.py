@@ -1,6 +1,7 @@
 
 class Lcg(object):
     def __init__(self, seed):
+        self.seed = seed
         self.st = seed
 
     def cur(self):

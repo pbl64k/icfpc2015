@@ -13,9 +13,9 @@ class Piece(object):
     def move(self, b, dpos, r):
         np = Piece(self.p, add(self.pos, dpos), (self.r + r) % len(self.p.mems))
         if np.validp(b):
-            return True, np
+            return False, np
         else:
-            return False, self
+            return True, self
 
     def validp(self, b):
         return all(map(lambda x: b.validp(x), self.coords()))

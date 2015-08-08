@@ -2,4 +2,5 @@
 *.pyc
 problems
 secret.py
+submit.sh
 

@@ -16,8 +16,8 @@ for game in konstruckt(sys.argv[1]):
     while True:
         game.display()
         c = getch()
-        f, game = game.move(kmap[c])
-        if not f:
+        gameover, valid, locks, game = game.move(kmap[c])
+        if gameover:
             break
     game.display()
     break

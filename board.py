@@ -1,9 +1,10 @@
 from ui import *
 
 class Board(object):
-    def __init__(self, w, h, f):
+    def __init__(self, w, h, f, dbg = True):
         self.w = w
         self.h = h
+        self.dbg = dbg
         self.brd = [[False for y in range(self.w)] for x in range(self.h)]
         for pos in f:
             self.set(pos['x'], pos['y'], True)
@@ -18,7 +19,8 @@ class Board(object):
         return map(lambda x: map(lambda y: '*' if y else ' ', x), self.brd)
 
     def display(self):
-        display(self.w, self.h, self.repr())
+        if self.dbg:
+            print display(self.w, self.h, self.repr())
 
     def validp(self, pos):
         x, y = pos

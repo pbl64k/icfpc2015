@@ -1,14 +1,14 @@
+import json
 import sys
+import time
 
 from konstruckt import *
 
-# TODO: stuff
+sols = []
 
-while True:
-    game.display()
-    c = getch()
-    f, game = game.move(kmap[c])
-    if not f:
-        break
-game.display()
+for game in konstruckt(sys.argv[1]):
+    s = game.solve()
+    sols.append({'problemId': game.id, 'seed': game.lcg.seed, 'tag': str(time.time()), 'solution': s})
+
+print json.dumps(sols)
 
