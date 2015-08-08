@@ -66,6 +66,7 @@ class Game(object):
         """ returns game over, valid, locks, new game state """
         assert not self.fail
         g = copy.copy(self)
+        g.lcg = copy.deepcopy(self.lcg)
         locks, pc = g.piece.move(g.b, m[0], m[1])
         if not locks:
             if pc.id() in g.banned:
@@ -101,7 +102,9 @@ class Game(object):
     def spawn(self):
         assert self.piece is None
         ix = self.lcg.gen()
-        piece = self.pcs[ix % len(self.pcs)]
+        ixx = ix % len(self.pcs)
+        #print 'Piece #', ixx
+        piece = self.pcs[ixx]
         sz = piece.max_x - piece.min_x + 1
         #print piece.pivot
         #print piece.orig_pos
