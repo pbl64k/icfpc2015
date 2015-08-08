@@ -31,6 +31,11 @@ class Board(object):
             self.set(x, y, True)
 
     def nuke(self):
-        pass
-        #for ix in range(self.h - 1, -1, -1):
+        remd = 0
+        for ix in range(self.h - 1, -1, -1):
+            while all(self.brd[ix]):
+                remd += 1
+                self.brd.pop(ix)
+                self.brd.insert(0, [False for y in range(self.w)])
+        return remd
 
