@@ -3,8 +3,6 @@ import math
 from piece import *
 from ui import *
 
-# FIXME banning is incorrect! (two-cell piece with pivot on one)
-
 class Game(object):
     def __init__(self, id, pieces, board, lcg):
         self.id = id

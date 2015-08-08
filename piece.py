@@ -21,5 +21,8 @@ class Piece(object):
         return all(map(lambda x: b.validp(x), self.coords()))
 
     def id(self):
-        return self.pos, self.r
+        return tuple(sorted(map(lambda x: add(x, self.pos), self.p.mems[self.r])))
+        # Thiw won't work, as different pivot positions and rotation may still result in
+        # the same cells being occupied
+        #return self.pos, self.r
 
