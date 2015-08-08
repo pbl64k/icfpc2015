@@ -1,5 +1,9 @@
+import math
+
 from piece import *
 from ui import *
+
+# FIXME banning is incorrect! (two-cell piece with pivot on one)
 
 class Game(object):
     def __init__(self, id, pieces, board, lcg):
@@ -19,12 +23,18 @@ class Game(object):
         f, pc = self.piece.move(self.b, m[0], m[1])
         if f:
             if pc.id() in self.banned:
+                self.score = 0
                 return False
             self.piece = pc
             self.banned.add(pc.id())
         else:
             self.b.merge(pc)
-            self.b.nuke()
+            remd = self.b.nuke()
+            pts = len(self.piece.p.mems[0]) + int(math.floor(100 * (1 + remd) * (remd / 2.0)))
+            bonus = 0 if self.ls_old == 0 else (((self.ls_old - 1) * pts) / 10)
+            sc = pts + bonus
+            self.score += sc
+            self.ls_old = remd
             self.piece = None
             self.spawn()
         return True
