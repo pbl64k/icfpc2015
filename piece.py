@@ -22,7 +22,7 @@ class Piece(object):
 
     def id(self):
         return tuple(sorted(map(lambda x: add(x, self.pos), self.p.mems[self.r])))
-        # Thiw won't work, as different pivot positions and rotation may still result in
+        # This won't work, as different pivot positions and rotation may still result in
         # the same cells being occupied
         #return self.pos, self.r
 
