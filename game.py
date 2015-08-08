@@ -102,9 +102,14 @@ class Game(object):
         assert self.piece is None
         ix = self.lcg.gen()
         piece = self.pcs[ix % len(self.pcs)]
-        sz = piece.max_x - piece.min_x
-        off = (self.b.w - sz + 1) / 2
-        self.piece = Piece(piece, (off - piece.min_x - 1, -piece.min_y))
+        #sz = piece.max_x - piece.min_x + 1
+        sz = piece.max_x + 1
+        #print piece.orig_pos
+        #print 'size:', sz
+        off = (self.b.w - sz) / 2
+        #print 'off:', off
+        #print self.b.w, off - piece.min_x
+        self.piece = Piece(piece, add(piece.pivot, (off, 0)))
         self.banned = frozenset([self.piece.id()])
         self.spawned += 1
         if self.spawned > self.sln or any(map(lambda x: not self.b.validp(x), self.piece.coords())):
