@@ -44,6 +44,7 @@ cmap = { \
     }
 
 moves = ['yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
+#moves = ['j', 'l', '.', 'y', 'q', 'x']
 
 class Game(object):
     def __init__(self, id, pieces, board, lcg, sln, dbg = True):
@@ -102,7 +103,7 @@ class Game(object):
         ix = self.lcg.gen()
         piece = self.pcs[ix % len(self.pcs)]
         sz = piece.max_x - piece.min_x
-        off = (self.b.w - sz) / 2
+        off = (self.b.w - sz + 1) / 2
         self.piece = Piece(piece, (off - piece.min_x - 1, -piece.min_y))
         self.banned = frozenset([self.piece.id()])
         self.spawned += 1
@@ -120,6 +121,9 @@ class Game(object):
             s += ss
         return s
 
+    # TODO connectivity checks
+    # TODO cutoff on successful phrases if no stuff around?
+    # TODO priority queue?
     def solve_piece(self):
         fr = [('', self)]
         excl = set()
