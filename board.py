@@ -29,10 +29,7 @@ class Board(object):
         return x >= 0 and x < self.w and y >= 0 and y < self.h and not self.get(x, y)
 
     def merge(self, pc):
-        #self.display()
         for x, y in pc.coords():
-            # FIXME? it's not really clear what happens when a piece spawn and some of the corresponding cells are already occupied?
-            #print x, y
             assert not self.get(x, y)
             self.set(x, y, True)
 
