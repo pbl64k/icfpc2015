@@ -120,7 +120,7 @@ class Game(object):
         g = self
         s = ''
         while g.spawned <= g.sln:
-            print s
+            #print s
             ss, g = g.solve_piece()
             g.display()
             s += ss
