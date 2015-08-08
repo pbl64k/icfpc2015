@@ -1,8 +1,6 @@
 from piece import *
 from ui import *
 
-# TODO proper placement on spawn
-
 class Game(object):
     def __init__(self, id, pieces, board, lcg):
         self.id = id
@@ -14,6 +12,8 @@ class Game(object):
         self.score = 0
         self.spawn()
 
+    # mind the slightly weird behavior here:
+    # locking takes precedence over the move being "invalid"
     def move(self, m):
         f, pc = self.piece.move(self.b, m[0], m[1])
         if f:
@@ -31,8 +31,10 @@ class Game(object):
         assert self.piece is None
         ix = self.lcg.gen()
         piece = self.pcs[ix % len(self.pcs)]
-        self.piece = Piece(piece, (3, 3))
-        self.banned = set()
+        sz = piece.max_x - piece.min_x
+        off = (self.b.w - sz) / 2
+        self.piece = Piece(piece, (off - piece.min_x - 1, -piece.min_y))
+        self.banned = set([self.piece.id()])
 
     def repr(self):
         r = self.b.repr()
@@ -41,7 +43,6 @@ class Game(object):
             if self.b.validp(pos):
                 r[pos[0]][pos[1]] = '+'
             for x, y in self.piece.coords():
-                print x, y
                 if r[x][y] == '+':
                     r[x][y] = '0'
                 else:
@@ -49,6 +50,8 @@ class Game(object):
         return r
 
     def display(self):
+        print self.piece.id()
+        print self.banned
         display(self.b.w, self.b.h, self.repr())
         print 'Score:', self.score
 

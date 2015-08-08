@@ -20,6 +20,7 @@ class Board(object):
 
     def merge(self, pc):
         for x, y in pc.coords():
-            assert not self.b[x][y]
+            # FIXME it's not really clear what happens when a piece spawn and some of the corresponding cells are already occupied?
+            #assert not self.b[x][y]
             self.b[x][y] = True
 
