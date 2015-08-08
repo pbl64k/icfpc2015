@@ -10,7 +10,7 @@ def display(w, h, view):
         f = not f
         l += '| '
         for x in range(w):
-            l += view[x][y]
+            l += view[y][x]
             l += ' | '
         l += '\n'
         for x in range(w):

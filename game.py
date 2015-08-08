@@ -10,6 +10,7 @@ class Game(object):
         self.piece = None
         self.banned = set()
         self.score = 0
+        self.ls_old = 0
         self.spawn()
 
     # mind the slightly weird behavior here:
@@ -23,6 +24,7 @@ class Game(object):
             self.banned.add(pc.id())
         else:
             self.b.merge(pc)
+            self.b.nuke()
             self.piece = None
             self.spawn()
         return True
@@ -41,12 +43,12 @@ class Game(object):
         if self.piece is not None:
             pos = untranslate(self.piece.pos)
             if self.b.validp(pos):
-                r[pos[0]][pos[1]] = '+'
+                r[pos[1]][pos[0]] = '+'
             for x, y in self.piece.coords():
-                if r[x][y] == '+':
-                    r[x][y] = '0'
+                if r[y][x] == '+':
+                    r[y][x] = '0'
                 else:
-                    r[x][y] = 'O'
+                    r[y][x] = 'O'
         return r
 
     def display(self):
