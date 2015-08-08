@@ -6,6 +6,7 @@ class Board(object):
         self.h = h
         self.dbg = dbg
         self.brd = [[False for y in range(self.w)] for x in range(self.h)]
+        self.fill = [0 for ix in range(self.h)]
         for pos in f:
             self.set(pos['x'], pos['y'], True)
 
@@ -14,6 +15,7 @@ class Board(object):
 
     def set(self, x, y, z):
         self.brd[y][x] = z
+        self.fill[y] += 1
 
     def repr(self):
         return map(lambda x: map(lambda y: '*' if y else ' ', x), self.brd)
@@ -27,9 +29,11 @@ class Board(object):
         return x >= 0 and x < self.w and y >= 0 and y < self.h and not self.get(x, y)
 
     def merge(self, pc):
+        #self.display()
         for x, y in pc.coords():
             # FIXME? it's not really clear what happens when a piece spawn and some of the corresponding cells are already occupied?
-            #assert not self.get(x, y)
+            #print x, y
+            assert not self.get(x, y)
             self.set(x, y, True)
 
     def nuke(self):
@@ -39,5 +43,7 @@ class Board(object):
                 remd += 1
                 self.brd.pop(ix)
                 self.brd.insert(0, [False for y in range(self.w)])
+                self.fill.pop(ix)
+                self.fill.insert(0, 0)
         return remd
 

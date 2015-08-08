@@ -43,8 +43,9 @@ cmap = { \
     'x': ((0, 0), -1), \
     }
 
-#moves = ['ei!', 'j', 'l', '.', 'y', 'q', 'x']
-moves = list(reversed(['ei!', 'j', 'l', '.', 'y', 'q', 'x']))
+moves = ['ei!', 'j', 'l', '.', 'y', 'q', 'x']
+#moves = ['ei!']
+#moves = list(reversed(['ei!', 'j', 'l', '.', 'y', 'q', 'x']))
 
 class Game(object):
     def __init__(self, id, pieces, board, lcg, sln, dbg = True):
@@ -111,6 +112,7 @@ class Game(object):
         self.banned = frozenset([self.piece.id()])
         self.spawned += 1
         if self.spawned > self.sln or any(map(lambda x: not self.b.validp(x), self.piece.coords())):
+            self.spawned = self.sln + 1
             return False
         return True
 
@@ -135,19 +137,28 @@ class Game(object):
             #print 'moves', list(moves)
             #g.display()
             for m in moves:
+                #g.display()
                 m2, gameover, valid, locks, g2 = g.apply_moves(m)
-                if g2.piece.id() in excl:
-                    continue
-                excl.add(g2.piece.id())
+                #g2.display()
+                #print 'boink'
                 if not valid:
                     #print m2, 'is not valid'
                     continue
                 if locks:
                     #print m2, 'locks'
-                    if best is None or g2.score > best[1].score:
+                    #print 'Considering...'
+                    #g.display()
+                    #if best is not None:
+                    #    print g2.score, best[1].score
+                    #    print g2.b.fill
+                    #    print best[1].b.fill
+                    if best is None or (g2.score > best[1].score or (g2.score == best[1].score and list(reversed(g2.b.fill)) > list(reversed(best[1].b.fill)))):
                         best = (s + m2, g2)
                 else:
                     #print m2, 'queueing...'
+                    if g2.piece.id() in excl:
+                        continue
+                    excl.add(g2.piece.id())
                     fr.append((s + m2, g2))
         return best
 
