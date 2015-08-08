@@ -28,7 +28,8 @@ kmap = {'u': ((-1, 0), 0), \
 while True:
     game.display()
     c = getch()
-    if not game.move(kmap[c]):
+    f, game = game.move(kmap[c])
+    if not f:
         break
 game.display()
 

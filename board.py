@@ -26,7 +26,7 @@ class Board(object):
 
     def merge(self, pc):
         for x, y in pc.coords():
-            # FIXME it's not really clear what happens when a piece spawn and some of the corresponding cells are already occupied?
+            # FIXME? it's not really clear what happens when a piece spawn and some of the corresponding cells are already occupied?
             #assert not self.get(x, y)
             self.set(x, y, True)
 

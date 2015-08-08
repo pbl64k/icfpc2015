@@ -1,3 +1,4 @@
+import copy
 import math
 
 from piece import *
@@ -12,33 +13,35 @@ class Game(object):
         self.sln = sln
         self.spawned = 0
         self.piece = None
-        self.banned = set()
+        self.banned = frozenset()
         self.score = 0
         self.ls_old = 0
         self.spawn()
 
-    # mind the slightly weird behavior here:
+    # FIXME? mind the slightly weird behavior here:
     # locking takes precedence over the move being "invalid"
     def move(self, m):
-        f, pc = self.piece.move(self.b, m[0], m[1])
+        g = copy.copy(self)
+        f, pc = g.piece.move(g.b, m[0], m[1])
         if f:
-            if pc.id() in self.banned:
-                self.score = 0
-                return False
-            self.piece = pc
-            self.banned.add(pc.id())
+            if pc.id() in g.banned:
+                g.score = 0
+                return False, g
+            g.piece = pc
+            g.banned = g.banned | frozenset(pc.id())
         else:
-            self.b.merge(pc)
-            remd = self.b.nuke()
-            pts = len(self.piece.p.mems[0]) + int(math.floor(100 * (1 + remd) * (remd / 2.0)))
-            bonus = 0 if self.ls_old == 0 else (((self.ls_old - 1) * pts) / 10)
+            g.b = copy.copy(g.b)
+            g.b.merge(pc)
+            remd = g.b.nuke()
+            pts = len(g.piece.p.mems[0]) + int(math.floor(100 * (1 + remd) * (remd / 2.0)))
+            bonus = 0 if g.ls_old == 0 else (((g.ls_old - 1) * pts) / 10)
             sc = pts + bonus
-            self.score += sc
-            self.ls_old = remd
-            self.piece = None
-            if not self.spawn():
-                return False
-        return True
+            g.score += sc
+            g.ls_old = remd
+            g.piece = None
+            if not g.spawn():
+                return False, g
+        return True, g
 
     def spawn(self):
         assert self.piece is None
@@ -47,7 +50,7 @@ class Game(object):
         sz = piece.max_x - piece.min_x
         off = (self.b.w - sz) / 2
         self.piece = Piece(piece, (off - piece.min_x - 1, -piece.min_y))
-        self.banned = set([self.piece.id()])
+        self.banned = frozenset([self.piece.id()])
         self.spawned += 1
         if self.spawned > self.sln:
             return False
