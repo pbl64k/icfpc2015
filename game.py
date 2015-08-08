@@ -125,7 +125,8 @@ class Game(object):
         excl = set()
         best = None
         while len(fr) > 0:
-            s, g = fr.pop()
+            #s, g = fr.pop()
+            s, g = fr.pop(0)
             for m in moves:
                 m2, gameover, valid, locks, g2 = g.apply_moves(m)
                 if not valid:
