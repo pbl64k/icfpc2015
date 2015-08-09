@@ -90,7 +90,7 @@ class Board(object):
     def calc_parts(self):
         r = 0.0
         for ix in range(self.h):
-            r *= 0.5
+            r *= 0.95
             r += self.parts[ix]
         return r
 

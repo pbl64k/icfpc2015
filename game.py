@@ -80,7 +80,6 @@ class Game(object):
             g.b = copy.deepcopy(g.b)
             g.b.merge(pc)
             remd = g.b.nuke()
-            print remd
             pts = len(g.piece.p.mems[0]) + int(math.floor(100 * (1 + remd) * (remd / 2.0)))
             bonus = 0 if g.ls_old == 0 else (((g.ls_old - 1) * pts) / 10)
             sc = pts + bonus
@@ -164,8 +163,8 @@ class Game(object):
         #return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
         #return self.score, -self.b.tot_parts, list(reversed(self.b.fill))
         #return self.score, -self.b.calc_parts(), list(reversed(self.b.fill))
-        #return self.score, self.b.calc_magic()
-        return self.score, list(reversed(self.b.fill))
+        return self.score, self.b.calc_magic()
+        #return self.score, list(reversed(self.b.fill))
 
     def repr(self):
         r = self.b.repr()

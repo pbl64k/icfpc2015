@@ -1,3 +1,3 @@
 
-curTag = 'parts1-fastnuke'
+curTag = 'BtB-magicparts1'
 
