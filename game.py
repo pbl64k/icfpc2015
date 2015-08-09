@@ -2,7 +2,10 @@ import copy
 import math
 import time
 
+from cStringIO import StringIO
+
 from piece import *
+from stst import *
 from ui import *
 
 cmap = { \
@@ -91,13 +94,13 @@ class Game(object):
 
     def apply_moves(self, mvs):
         g = self
-        s = ''
+        s = []
         for c in mvs:
             gameover, valid, locks, g = g.move(cmap[c])
-            s += c
+            s.append(c)
             if gameover or locks:
-                return s, gameover, valid, locks, g
-        return s, gameover, valid, locks, g
+                return ''.join(s), gameover, valid, locks, g
+        return ''.join(s), gameover, valid, locks, g
 
     def spawn(self):
         assert self.piece is None
@@ -116,14 +119,16 @@ class Game(object):
 
     def solve(self, dl):
         g = self
-        s = ''
+        s = []
         while g.spawned <= g.sln:
             ss, score, g = g.solve_piece()
             g.display()
-            s += ss
+            sstr = StringIO()
+            ss.seq(sstr)
+            s.append(sstr.getvalue())
             if time.time() >= dl:
-                return s
-        return s
+                return ''.join(s)
+        return ''.join(s)
 
     # TODO I'm keeping the current crap in terms of connectivity/parts. No reasonable alternative.
     # TODO cutoff on successful phrases if no stuff around?
@@ -131,7 +136,7 @@ class Game(object):
     # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power (+cutoff, +stop-on-clear)
     # TODO opt?
     def solve_piece(self):
-        fr = [('', self)]
+        fr = [(StSt(), self)]
         excl = set()
         best = None
         while len(fr) > 0:
@@ -145,12 +150,12 @@ class Game(object):
                     g2score = g2.search_score()
                     #if best is None or (g2.score > best[1].score or (g2.score == best[1].score and list(reversed(g2.b.fill)) > list(reversed(best[1].b.fill)))):
                     if best is None or g2score > best[1]:
-                        best = (s + m2, g2score, g2)
+                        best = (StSt(s, m2), g2score, g2)
                 else:
                     if g2.piece.id() in excl:
                         continue
                     excl.add(g2.piece.id())
-                    fr.append((s + m2, g2))
+                    fr.append((StSt(s, m2), g2))
         return best
 
     def search_score(self):

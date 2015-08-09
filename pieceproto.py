@@ -1,4 +1,9 @@
-from utils import *
+import utils
+
+sub = utils.sub
+translate = utils.translate
+untranslate = utils.untranslate
+mem_rot = utils.mem_rot
 
 class PieceProto(object):
     def __init__(self, data):

@@ -1,5 +1,8 @@
-from utils import *
+import utils
+
 from ui import *
+
+ns_hextris = utils.ns_hextris
 
 class Board(object):
     def __init__(self, w, h, f, dbg = True):
