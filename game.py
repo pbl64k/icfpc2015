@@ -43,8 +43,8 @@ cmap = { \
     'x': ((0, 0), -1), \
     }
 
-moves = ['yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
-#moves = ['shoggoth', 'azatoth', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
+moves = ['necronomicon', 'yogsothoth', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
+#moves = ['nyarlathotep', 'necronomicon', 'cthulhu phtagn!', 'yogsothoth', 'shubniggurath', 'yuggoth', 'ia! ia!', 'migo', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
 #moves = ['j', 'l', '.', 'y', 'q', 'x']
 
 class Game(object):
@@ -133,7 +133,6 @@ class Game(object):
     # TODO as it happens, connectivity also doesn't understand that large pieces might not fit through small openings. damn.
     # TODO prioritization. magicparts is willing to screw up the top of the board to keep the bottom neat. that's not nice.
     # TODO cutoff on successful phrases if no stuff around?
-    # TODO priority queue?
     # TODO stop looking if clears a row? probably not worth it.
     # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power
     # TODO time & mem
@@ -162,11 +161,11 @@ class Game(object):
         return best
 
     def search_score(self):
-        #return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
-        #return self.score, -self.b.tot_parts, list(reversed(self.b.fill))
-        #return self.score, -self.b.calc_parts(), list(reversed(self.b.fill))
-        return self.score, self.b.calc_magic()
         #return self.score, list(reversed(self.b.fill))
+        #return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
+        return self.score, -self.b.tot_parts, list(reversed(self.b.fill))
+        #return self.score, -self.b.calc_parts(), list(reversed(self.b.fill))
+        #return self.score, self.b.calc_magic()
 
     def repr(self):
         r = self.b.repr()

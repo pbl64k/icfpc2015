@@ -1,3 +1,3 @@
 
-curTag = 'BtB-magicparts1x3'
+curTag = 'BtB-totparts6'
 
