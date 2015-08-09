@@ -25,7 +25,10 @@ parser.add_argument('-m', action = 'store')
 
 args = parser.parse_args()
 
+witht = False
+
 if args.t is not None:
+    witht = True
     tlimit = float(args.t) * 0.95
     if tlimit <= 0.0:
         sys.exit('Time limit must be strictly positive. To run without time limit, simply omit the -t flag.');
@@ -41,24 +44,28 @@ if args.f is None:
 
 sols = []
 
-pdl = not args.nodebug or args.deadlines
+pdl = witht and (not args.nodebug or args.deadlines)
 
 if pdl:
     print 'Started on:', started_on
     print 'Global dealine:', deadline
 
+seed_deadline = None
+
 fnum = 0
 for fn in args.f:
-    t = time.time()
-    file_deadline = t + ((deadline - t) / (len(args.f) - fnum))
-    if pdl:
-        print fn, 'deadline:', file_deadline
+    if witht:
+        t = time.time()
+        file_deadline = t + ((deadline - t) / (len(args.f) - fnum))
+        if pdl:
+            print fn, 'deadline:', file_deadline
     snum = 0
     for seeds, game in konstruckt(fn, args.nodebug):
-        t = time.time()
-        seed_deadline = t + ((file_deadline - t) / (seeds - snum))
-        if pdl:
-            print fn, 'seed', game.lcg.seed, 'deadline:', seed_deadline
+        if witht:
+            t = time.time()
+            seed_deadline = t + ((file_deadline - t) / (seeds - snum))
+            if pdl:
+                print fn, 'seed', game.lcg.seed, 'deadline:', seed_deadline
         s = game.solve(seed_deadline)
         sols.append({'problemId': game.id, 'seed': game.lcg.seed, 'tag': curTag + '-' + str(game.id) + '-' + str(game.lcg.seed) + '-' + str(time.time()), 'solution': s})
         snum += 1

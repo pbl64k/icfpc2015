@@ -126,7 +126,7 @@ class Game(object):
             sstr = StringIO()
             ss.seq(sstr)
             s.append(sstr.getvalue())
-            if time.time() >= dl:
+            if dl is not None and time.time() >= dl:
                 return ''.join(s)
         return ''.join(s)
 
