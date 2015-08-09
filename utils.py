@@ -56,3 +56,20 @@ def sub(pos1, pos2):
 def scale(pos, k):
     return pos[0] * k, pos[1] * k
 
+ns_d = ((-1, 0), (0, -1), (1, -1), (1, 0), (0, 1), (-1, 1))
+ns_d_hex = ((-1, 0), (1, 0), (0, 1), (-1, 1))
+
+def ns(pos, hextris = True):
+    p = translate(pos)
+    r = []
+    for d in ns_d:
+        r.append(add(p, d))
+    return map(untranslate, r)
+
+def ns_hextris(pos, hextris = True):
+    p = translate(pos)
+    r = []
+    for d in ns_d_hex:
+        r.append(add(p, d))
+    return map(untranslate, r)
+

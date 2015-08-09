@@ -1,3 +1,4 @@
+from utils import *
 from ui import *
 
 class Board(object):
@@ -43,4 +44,18 @@ class Board(object):
                 self.fill.pop(ix)
                 self.fill.insert(0, 0)
         return remd
+
+    def calc_connect(self):
+        r = 0
+        v = set()
+        fr = [(self.w / 2, 0)]
+        while len(fr) > 0:
+            pos = fr.pop()
+            if pos in v or not self.validp(pos):
+                continue
+            v.add(pos)
+            r += 1
+            for n in ns_hextris(pos):
+                fr.append(n)
+        return r
 

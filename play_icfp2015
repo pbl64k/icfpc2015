@@ -1,4 +1,4 @@
 #!/bin/sh
 DIR=`dirname $0`
-`which pypy` $DIR/console.py "$@"
+`which pypy` $DIR/solve.py "$@"
 

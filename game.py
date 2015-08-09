@@ -44,7 +44,7 @@ cmap = { \
     }
 
 moves = ['yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
-#moves = ['cthulhu fhtagn', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
+#moves = ['shoggoth', 'azatoth', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
 #moves = ['j', 'l', '.', 'y', 'q', 'x']
 
 class Game(object):
@@ -125,7 +125,7 @@ class Game(object):
         g = self
         s = ''
         while g.spawned <= g.sln:
-            ss, g = g.solve_piece()
+            ss, score, g = g.solve_piece()
             g.display()
             s += ss
         return s
@@ -148,14 +148,19 @@ class Game(object):
                 if not valid:
                     continue
                 if locks:
-                    if best is None or (g2.score > best[1].score or (g2.score == best[1].score and list(reversed(g2.b.fill)) > list(reversed(best[1].b.fill)))):
-                        best = (s + m2, g2)
+                    g2score = g2.search_score()
+                    #if best is None or (g2.score > best[1].score or (g2.score == best[1].score and list(reversed(g2.b.fill)) > list(reversed(best[1].b.fill)))):
+                    if best is None or g2score > best[1]:
+                        best = (s + m2, g2score, g2)
                 else:
                     if g2.piece.id() in excl:
                         continue
                     excl.add(g2.piece.id())
                     fr.append((s + m2, g2))
         return best
+
+    def search_score(self):
+        return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
 
     def repr(self):
         r = self.b.repr()
@@ -176,5 +181,6 @@ class Game(object):
             #print self.banned
             print
             print display(self.b.w, self.b.h, self.repr())
+            #print 'Connectivity:', self.b.calc_connect()
             print '*** FAIL! *** Score:' if self.fail else 'Score:', self.score
 
