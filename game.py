@@ -133,6 +133,9 @@ class Game(object):
     # TODO connectivity checks
     # TODO cutoff on successful phrases if no stuff around?
     # TODO priority queue?
+    # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power
+    # TODO time & mem
+    # TODO opt?
     def solve_piece(self):
         fr = [('', self)]
         excl = set()
