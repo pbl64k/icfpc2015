@@ -80,6 +80,7 @@ class Game(object):
             g.b = copy.deepcopy(g.b)
             g.b.merge(pc)
             remd = g.b.nuke()
+            print remd
             pts = len(g.piece.p.mems[0]) + int(math.floor(100 * (1 + remd) * (remd / 2.0)))
             bonus = 0 if g.ls_old == 0 else (((g.ls_old - 1) * pts) / 10)
             sc = pts + bonus
@@ -130,6 +131,7 @@ class Game(object):
         return s
 
     # TODO improvement connectivity -- partition refinement?
+    # TODO as it happens, connectivity also doesn't understand that large pieces might not fit through small openings. damn.
     # TODO cutoff on successful phrases if no stuff around?
     # TODO priority queue?
     # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power
@@ -159,7 +161,11 @@ class Game(object):
         return best
 
     def search_score(self):
-        return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
+        #return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
+        #return self.score, -self.b.tot_parts, list(reversed(self.b.fill))
+        #return self.score, -self.b.calc_parts(), list(reversed(self.b.fill))
+        #return self.score, self.b.calc_magic()
+        return self.score, list(reversed(self.b.fill))
 
     def repr(self):
         r = self.b.repr()
@@ -181,5 +187,6 @@ class Game(object):
             print
             print display(self.b.w, self.b.h, self.repr())
             #print 'Connectivity:', self.b.calc_connect()
+            print 'Parts:', self.b.parts
             print '*** FAIL! *** Score:' if self.fail else 'Score:', self.score
 

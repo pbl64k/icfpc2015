@@ -1,3 +1,3 @@
 
-curTag = 'connect1-fastnuke'
+curTag = 'parts1-fastnuke'
 
