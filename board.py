@@ -6,6 +6,7 @@ class Board(object):
         self.w = w
         self.h = h
         self.dbg = dbg
+        self.nukable = []
         self.brd = [[False for y in range(self.w)] for x in range(self.h)]
         self.fill = [0 for ix in range(self.h)]
         for pos in f:
@@ -17,6 +18,8 @@ class Board(object):
     def set(self, x, y, z):
         self.brd[y][x] = z
         self.fill[y] += 1
+        if self.fill[y] == self.w:
+            self.nukable.append(y)
 
     def repr(self):
         return map(lambda x: map(lambda y: '*' if y else ' ', x), self.brd)
@@ -36,14 +39,26 @@ class Board(object):
 
     def nuke(self):
         remd = 0
-        for ix in range(self.h - 1, -1, -1):
-            while all(self.brd[ix]):
-                remd += 1
+        if len(self.nukable) > 0:
+            self.nukable.sort(reverse = True)
+            while len(self.nukable) > 0:
+                ix = self.nukable.pop()
                 self.brd.pop(ix)
                 self.brd.insert(0, [False for y in range(self.w)])
                 self.fill.pop(ix)
                 self.fill.insert(0, 0)
         return remd
+
+    #def nuke(self):
+    #    remd = 0
+    #    for ix in range(self.h - 1, -1, -1):
+    #        while all(self.brd[ix]):
+    #            remd += 1
+    #            self.brd.pop(ix)
+    #            self.brd.insert(0, [False for y in range(self.w)])
+    #            self.fill.pop(ix)
+    #            self.fill.insert(0, 0)
+    #    return remd
 
     def calc_connect(self):
         r = 0
