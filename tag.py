@@ -1,3 +1,3 @@
 
-curTag = 'BtB-totparts6'
+curTag = 'btb-power6'
 

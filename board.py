@@ -87,5 +87,12 @@ class Board(object):
         return r
 
     def calc_magic(self):
-        return list(reversed(map(lambda x: x[0] - 3 * x[1], zip(self.fill, self.parts))))
+        #return list(reversed(map(lambda x: x[0] - x[1], zip(self.fill, self.parts))))
+        res = []
+        sw = self.fill[self.h - 1] - self.parts[self.h - 1]
+        for ix in range(self.h - 2, -1, -1):
+            sw2 = self.fill[ix] - self.parts[ix]
+            res.append(sw + sw2)
+            sw = sw2
+        return res
 

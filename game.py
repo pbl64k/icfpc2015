@@ -134,7 +134,6 @@ class Game(object):
     # TODO cutoff on successful phrases if no stuff around?
     # TODO stop looking if clears a row? probably not worth it.
     # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power (+cutoff, +stop-on-clear)
-    # TODO opt?
     def solve_piece(self):
         fr = [(StSt(), self)]
         excl = set()
@@ -161,9 +160,9 @@ class Game(object):
     def search_score(self):
         #return self.score, list(reversed(self.b.fill))
         #return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
-        return self.score, -self.b.tot_parts, list(reversed(self.b.fill))
+        #return self.score, -self.b.tot_parts, list(reversed(self.b.fill))
         #return self.score, -self.b.calc_parts(), list(reversed(self.b.fill))
-        #return self.score, self.b.calc_magic()
+        return self.score, self.b.calc_magic()
 
     def repr(self):
         r = self.b.repr()
@@ -183,7 +182,5 @@ class Game(object):
             print
             print display(self.b.w, self.b.h, self.repr())
             print 'Problem', self.id, ('(' + str(self.lcg.seed) + ')')
-            #print 'Connectivity:', self.b.calc_connect()
-            #print 'Parts:', self.b.parts
             print '*** FAIL! *** Score:' if self.fail else 'Score:', self.score
 
