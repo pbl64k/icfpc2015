@@ -108,7 +108,6 @@ class Game(object):
         piece = self.pcs[ixx]
         sz = piece.max_x - piece.min_x + 1
         #print piece.pivot
-        #print piece.orig_pos
         #print 'size:', sz
         off = (self.b.w - sz) / 2
         #print 'off:', off
@@ -130,7 +129,7 @@ class Game(object):
             s += ss
         return s
 
-    # TODO connectivity checks
+    # TODO improvement connectivity -- partition refinement?
     # TODO cutoff on successful phrases if no stuff around?
     # TODO priority queue?
     # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power
