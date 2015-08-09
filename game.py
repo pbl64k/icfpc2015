@@ -1,5 +1,6 @@
 import copy
 import math
+import time
 
 from piece import *
 from ui import *
@@ -113,20 +114,21 @@ class Game(object):
             return False
         return True
 
-    def solve(self):
+    def solve(self, dl):
         g = self
         s = ''
         while g.spawned <= g.sln:
             ss, score, g = g.solve_piece()
             g.display()
             s += ss
+            if time.time() >= dl:
+                return s
         return s
 
     # TODO I'm keeping the current crap in terms of connectivity/parts. No reasonable alternative.
     # TODO cutoff on successful phrases if no stuff around?
     # TODO stop looking if clears a row? probably not worth it.
     # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power (+cutoff, +stop-on-clear)
-    # TODO time
     # TODO opt?
     def solve_piece(self):
         fr = [('', self)]

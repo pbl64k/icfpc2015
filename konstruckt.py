@@ -11,8 +11,9 @@ def konstruckt(fn, nodebug = False):
     
     b = Board(data['width'], data['height'], data['filled'])
     pcs = map(PieceProto, data['units'])
+    seeds = len(data['sourceSeeds'])
     for ss in data['sourceSeeds']:
         lcg = Lcg(ss)
         game = Game(data['id'], pcs, b, lcg, data['sourceLength'], not nodebug)
-        yield game
+        yield seeds, game
 

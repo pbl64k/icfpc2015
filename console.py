@@ -12,7 +12,7 @@ kmap = {'u': ((-1, 0), 0), \
     'l': ((0, 1), 0), \
     }
 
-for game in konstruckt(sys.argv[1]):
+for seeds, game in konstruckt(sys.argv[1]):
     while True:
         game.display()
         c = getch()
