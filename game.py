@@ -130,6 +130,8 @@ class Game(object):
                 return ''.join(s)
         return ''.join(s)
 
+    # TODO score: piece-local depth/partitioning
+    # TODO score: piece-local depth & downward neighbors
     # TODO I'm keeping the current crap in terms of connectivity/parts. No reasonable alternative.
     # TODO cutoff on successful phrases if no stuff around?
     # TODO stop looking if clears a row? probably not worth it.
