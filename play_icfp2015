@@ -1,4 +1,4 @@
 #!/bin/sh
 DIR=`dirname $0`
-`which pypy` $DIR/solve.py "$@"
+pypy $DIR/final_solver.py --nodebug --nosave "$@"
 

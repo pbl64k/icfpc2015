@@ -43,9 +43,9 @@ cmap = { \
     'x': ((0, 0), -1), \
     }
 
-moves = ['necronomicon', 'yogsothoth', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
+#moves = ['necronomicon', 'yogsothoth', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
 #moves = ['nyarlathotep', 'necronomicon', 'cthulhu phtagn!', 'yogsothoth', 'shubniggurath', 'yuggoth', 'ia! ia!', 'migo', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
-#moves = ['j', 'l', '.', 'y', 'q', 'x']
+moves = ['j', 'l', '.', 'y', 'q', 'x']
 
 class Game(object):
     def __init__(self, id, pieces, board, lcg, sln, dbg = True):
