@@ -129,10 +129,12 @@ class Game(object):
             s += ss
         return s
 
-    # TODO improvement connectivity -- partition refinement?
+    # TODO connectivity/parts sucks, but there's no clear, efficient improvement. partition refinement also won't work.
     # TODO as it happens, connectivity also doesn't understand that large pieces might not fit through small openings. damn.
+    # TODO prioritization. magicparts is willing to screw up the top of the board to keep the bottom neat. that's not nice.
     # TODO cutoff on successful phrases if no stuff around?
     # TODO priority queue?
+    # TODO stop looking if clears a row? probably not worth it.
     # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power
     # TODO time & mem
     # TODO opt?

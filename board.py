@@ -95,5 +95,5 @@ class Board(object):
         return r
 
     def calc_magic(self):
-        return list(reversed(map(lambda x: x[0] - x[1], zip(self.fill, self.parts))))
+        return list(reversed(map(lambda x: x[0] - 3 * x[1], zip(self.fill, self.parts))))
 
