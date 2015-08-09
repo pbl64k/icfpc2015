@@ -12,8 +12,9 @@ class Board(object):
         self.nukable = []
         self.brd = [[False for y in range(self.w)] for x in range(self.h)]
         self.fill = [0 for ix in range(self.h)]
-        self.tot_parts = self.h
-        self.parts = [1 for ix in range(self.h)]
+        #self.tot_parts = self.h
+        #self.parts = [1 for ix in range(self.h)]
+        self.merge_score = None
         for pos in f:
             self.set(pos['x'], pos['y'], True)
 
@@ -25,14 +26,14 @@ class Board(object):
         self.fill[y] += 1
         if self.fill[y] == self.w:
             self.nukable.append(y)
-        l = self.validp((x - 1, y))
-        r = self.validp((x + 1, y))
-        if l and r:
-            self.tot_parts += 1
-            self.parts[y] += 1
-        elif not l and not r:
-            self.tot_parts -= 1
-            self.parts[y] -= 1
+        #l = self.validp((x - 1, y))
+        #r = self.validp((x + 1, y))
+        #if l and r:
+        #    self.tot_parts += 1
+        #    self.parts[y] += 1
+        #elif not l and not r:
+        #    self.tot_parts -= 1
+        #    self.parts[y] -= 1
 
     def repr(self):
         return map(lambda x: map(lambda y: '*' if y else ' ', x), self.brd)
@@ -46,9 +47,20 @@ class Board(object):
         return x >= 0 and x < self.w and y >= 0 and y < self.h and not self.get(x, y)
 
     def merge(self, pc):
-        for x, y in pc.coords():
-            assert not self.get(x, y)
+        self.merge_score = 0
+        crds = set(pc.coords())
+        ns = set()
+        for pos in pc.coords():
+            x, y = pos
+            #assert not self.get(x, y)
+            for nspos in ns_hextris(pos):
+                if nspos not in crds:
+                    ns.add(nspos)
+            self.merge_score += y
             self.set(x, y, True)
+        for nspos in ns:
+            if not self.validp(nspos):
+                self.merge_score += 1
 
     def nuke(self):
         remd = 0
@@ -61,8 +73,8 @@ class Board(object):
                 self.brd.insert(0, [False for y in range(self.w)])
                 self.fill.pop(ix)
                 self.fill.insert(0, 0)
-                self.parts.pop(ix)
-                self.parts.insert(0, 1)
+                #self.parts.pop(ix)
+                #self.parts.insert(0, 1)
         return remd
 
     def calc_connect(self):

@@ -1,3 +1,3 @@
 
-curTag = 'btb-simrev6'
+curTag = 'btb-locn6'
 

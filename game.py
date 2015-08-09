@@ -95,12 +95,16 @@ class Game(object):
     def apply_moves(self, mvs):
         g = self
         s = []
+        l = -1
         for c in mvs:
+            if locks:
+                return ''.join(s), gameover, valid, locks, g, 0
+            l += 1
             gameover, valid, locks, g = g.move(cmap[c])
             s.append(c)
-            if gameover or locks:
-                return ''.join(s), gameover, valid, locks, g
-        return ''.join(s), gameover, valid, locks, g
+            if gameover:
+                return ''.join(s), gameover, valid, locks, g, 0
+        return mvs, gameover, valid, locks, g, l
 
     def spawn(self):
         assert self.piece is None
@@ -131,7 +135,6 @@ class Game(object):
         return ''.join(s)
 
     # TODO score: piece-local depth/partitioning
-    # TODO score: piece-local depth & downward neighbors
     # TODO I'm keeping the current crap in terms of connectivity/parts. No reasonable alternative.
     # TODO cutoff on successful phrases if no stuff around?
     # TODO stop looking if clears a row? probably not worth it.
@@ -144,9 +147,11 @@ class Game(object):
             #s, g = fr.pop()
             s, g = fr.pop(0)
             for m in moves:
-                m2, gameover, valid, locks, g2 = g.apply_moves(m)
+                m2, gameover, valid, locks, g2, plen = g.apply_moves(m)
                 if not valid:
                     continue
+                #if plen > 0:
+                #    g2.score += 1
                 if locks:
                     g2score = g2.search_score()
                     #if best is None or (g2.score > best[1].score or (g2.score == best[1].score and list(reversed(g2.b.fill)) > list(reversed(best[1].b.fill)))):
@@ -164,7 +169,8 @@ class Game(object):
         #return self.score, self.b.calc_connect(), list(reversed(self.b.fill))
         #return self.score, -self.b.tot_parts, list(reversed(self.b.fill))
         #return self.score, -self.b.calc_parts(), list(reversed(self.b.fill))
-        return self.score, self.b.calc_magic()
+        #return self.score, self.b.calc_magic()
+        return self.score, self.b.merge_score
 
     def repr(self):
         r = self.b.repr()

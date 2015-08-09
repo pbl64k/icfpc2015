@@ -59,14 +59,14 @@ def scale(pos, k):
 ns_d = ((-1, 0), (0, -1), (1, -1), (1, 0), (0, 1), (-1, 1))
 ns_d_hex = ((-1, 0), (1, 0), (0, 1), (-1, 1))
 
-def ns(pos, hextris = True):
+def ns(pos):
     p = translate(pos)
     r = []
     for d in ns_d:
         r.append(add(p, d))
     return map(untranslate, r)
 
-def ns_hextris(pos, hextris = True):
+def ns_hextris(pos):
     p = translate(pos)
     r = []
     for d in ns_d_hex:
