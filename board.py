@@ -87,6 +87,12 @@ class Board(object):
         return r
 
     def calc_magic(self):
+        res = []
+        for ix in range(self.h):
+            res.append(-self.fill[ix] - self.parts[ix])
+        return res
+
+    def calc_magic_power6(self):
         #return list(reversed(map(lambda x: x[0] - x[1], zip(self.fill, self.parts))))
         res = []
         sw = self.fill[self.h - 1] - self.parts[self.h - 1]
