@@ -185,7 +185,8 @@ class Game(object):
             #print self.banned
             print
             print display(self.b.w, self.b.h, self.repr())
+            print 'Problem', self.id, ('(' + str(self.lcg.seed) + ')')
             #print 'Connectivity:', self.b.calc_connect()
-            print 'Parts:', self.b.parts
+            #print 'Parts:', self.b.parts
             print '*** FAIL! *** Score:' if self.fail else 'Score:', self.score
 
