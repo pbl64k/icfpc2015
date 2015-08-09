@@ -14,7 +14,6 @@ tag_ids = {}
 pending = []
 
 for x in data:
-    #print x
     id = x['problemId']
     if id not in ids:
         ids[id] = {}

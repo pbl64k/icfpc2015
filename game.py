@@ -43,8 +43,6 @@ cmap = { \
     'x': ((0, 0), -1), \
     }
 
-#moves = ['necronomicon', 'yogsothoth', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
-#moves = ['nyarlathotep', 'necronomicon', 'cthulhu phtagn!', 'yogsothoth', 'shubniggurath', 'yuggoth', 'ia! ia!', 'migo', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
 moves = ['j', 'l', '.', 'y', 'q', 'x']
 
 class Game(object):
@@ -104,14 +102,9 @@ class Game(object):
         assert self.piece is None
         ix = self.lcg.gen()
         ixx = ix % len(self.pcs)
-        #print 'Piece #', ixx
         piece = self.pcs[ixx]
         sz = piece.max_x - piece.min_x + 1
-        #print piece.pivot
-        #print 'size:', sz
         off = (self.b.w - sz) / 2
-        #print 'off:', off
-        #print self.b.w, off - piece.min_x
         self.piece = Piece(piece, add(piece.pivot, (off - piece.min_x, -piece.min_y)))
         self.banned = frozenset([self.piece.id()])
         self.spawned += 1
@@ -129,13 +122,11 @@ class Game(object):
             s += ss
         return s
 
-    # TODO connectivity/parts sucks, but there's no clear, efficient improvement. partition refinement also won't work.
-    # TODO as it happens, connectivity also doesn't understand that large pieces might not fit through small openings. damn.
-    # TODO prioritization. magicparts is willing to screw up the top of the board to keep the bottom neat. that's not nice.
+    # TODO I'm keeping the current crap in terms of connectivity/parts. No reasonable alternative.
     # TODO cutoff on successful phrases if no stuff around?
     # TODO stop looking if clears a row? probably not worth it.
-    # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power
-    # TODO time & mem
+    # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power (+cutoff, +stop-on-clear)
+    # TODO time
     # TODO opt?
     def solve_piece(self):
         fr = [('', self)]
@@ -182,8 +173,6 @@ class Game(object):
 
     def display(self):
         if self.dbg:
-            #print self.piece.id()
-            #print self.banned
             print
             print display(self.b.w, self.b.h, self.repr())
             print 'Problem', self.id, ('(' + str(self.lcg.seed) + ')')
