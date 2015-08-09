@@ -5,7 +5,7 @@ use strict;
 
 for my $x (0..24)
 {
-    print STDOUT "Processing $x...\n";
+    print STDOUT "\nProcessing $x...\n";
     system("pypy solve.py problems/problem_$x.json");
     system("./sub.sh $x");
 }

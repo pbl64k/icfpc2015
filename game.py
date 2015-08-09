@@ -44,6 +44,7 @@ cmap = { \
     }
 
 moves = ['yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
+#moves = ['cthulhu fhtagn', 'yuggoth', 'ia! ia!', 'r\'lyeh', 'ei!', 'j', 'l', '.', 'y', 'q', 'x']
 #moves = ['j', 'l', '.', 'y', 'q', 'x']
 
 class Game(object):
