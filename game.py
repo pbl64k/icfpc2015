@@ -96,6 +96,7 @@ class Game(object):
         g = self
         s = []
         l = -1
+        locks = False
         for c in mvs:
             if locks:
                 return ''.join(s), gameover, valid, locks, g, 0
