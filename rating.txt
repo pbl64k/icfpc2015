@@ -1,9 +1,9 @@
 btb-xyzzy6          91.1%
 btb-locn6           90.3%
-btb-locntp6         89.4%
-BtB-magicparts1     89.3%
-btb-simrev6         87.1%
-BtB-magicparts1x3   85.6%
-BtB-totparts6       84.9%
-btb-power6          84.1%
+btb-locntp6         89.4%   89.4%
+BtB-magicparts1     89.3%   88.4%
+btb-simrev6         87.1%   86.2%
+BtB-magicparts1x3   85.6%   85.0%
+BtB-totparts6       84.9%   84.2%
+btb-power6          84.1%   83.4%
 

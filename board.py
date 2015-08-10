@@ -8,9 +8,9 @@ class Board(object):
     def __init__(self, w, h, f, dbg = True):
         self.w = w
         self.h = h
-        size = w * h
-        #self.medium = size > 128
-        self.large = size > 256
+        #size = w * h
+        ##self.medium = size > 128
+        #self.large = size > 256
         self.dbg = dbg
         self.nukable = []
         self.brd = [[False for y in range(self.w)] for x in range(self.h)]

@@ -92,20 +92,30 @@ class Game(object):
                 return True, True, locks, g
         return False, True, locks, g
 
+    #def apply_moves(self, mvs):
+    #    g = self
+    #    s = []
+    #    l = -1
+    #    locks = False
+    #    for c in mvs:
+    #        if locks:
+    #            return ''.join(s), gameover, valid, locks, g, 0
+    #        l += 1
+    #        gameover, valid, locks, g = g.move(cmap[c])
+    #        s.append(c)
+    #        if gameover:
+    #            return ''.join(s), gameover, valid, locks, g, 0
+    #    return mvs, gameover, valid, locks, g, l
+
     def apply_moves(self, mvs):
         g = self
         s = []
-        l = -1
-        locks = False
         for c in mvs:
-            if locks:
-                return ''.join(s), gameover, valid, locks, g, 0
-            l += 1
             gameover, valid, locks, g = g.move(cmap[c])
             s.append(c)
-            if gameover:
-                return ''.join(s), gameover, valid, locks, g, 0
-        return mvs, gameover, valid, locks, g, l
+            if locks or gameover:
+                return ''.join(s), gameover, valid, locks, g
+        return mvs, gameover, valid, locks, g
 
     def spawn(self):
         assert self.piece is None
@@ -148,12 +158,13 @@ class Game(object):
             #s, g = fr.pop()
             s, g = fr.pop(0)
             for m in moves:
-                m2, gameover, valid, locks, g2, plen = g.apply_moves(m)
+                #m2, gameover, valid, locks, g2, plen = g.apply_moves(m)
+                m2, gameover, valid, locks, g2 = g.apply_moves(m)
                 if not valid:
                     continue
-                if plen > 0:
-                    if g2.b.large:
-                        g2.score += plen
+                #if plen > 0:
+                #    if g2.b.large:
+                #        g2.score += plen
                 if locks:
                     g2score = g2.search_score()
                     #if best is None or (g2.score > best[1].score or (g2.score == best[1].score and list(reversed(g2.b.fill)) > list(reversed(best[1].b.fill)))):
