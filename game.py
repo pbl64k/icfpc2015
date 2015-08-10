@@ -135,11 +135,12 @@ class Game(object):
                 return ''.join(s)
         return ''.join(s)
 
+    # TODO stats
+    # TODO power depending on size
+    # TODO totparts
     # TODO score: piece-local depth/partitioning
-    # TODO I'm keeping the current crap in terms of connectivity/parts. No reasonable alternative.
     # TODO cutoff on successful phrases if no stuff around?
     # TODO stop looking if clears a row? probably not worth it.
-    # TODO different algos: (easy) packing, (med) current BFS, (huge) maximize power (+cutoff, +stop-on-clear)
     def solve_piece(self):
         fr = [(StSt(), self)]
         excl = set()
