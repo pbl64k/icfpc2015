@@ -16,8 +16,10 @@ The final qualifying scores can be found here: http://icfpcontest.org/leader_boa
 I ended up at #37 in the qualifiers, which makes getting into the finals unlikely. My finest hour was at T-36, when I was
 ranked fifth (see `my-finest-hour.png`). Unfortunately, I didn't manage to submit anything for the lightning round. If only I had spent
 less time procrastinating and mulling over how much the problem sucked, how tired I was, and how I had no idea as to how to
-solve the goddamn problem, I feel I would've had a good chance to compete for the top 10 in the lightning. Certainly shaving
-twelve hours off the time needed to get that #5 submission was far from impossible.
+solve the goddamn problem, I feel I would've had a good chance to compete for the top 10 in the lightning. I also sunk a few
+hours early on into dealing with bugs in placement of spawning pieces, game over conditions and proper threading of the RNG
+state through the solver -- most easily preventable by Better Reading (or just Actual Reading) of the spec.
+Certainly shaving twelve hours off the time needed to get that #5 submission was far from impossible.
 
 Being misled by the pre-contest hints into thinking that the contest would have something to do with Turing machines, program
 optimization, and, possibly, quantum computations, I spent quite some time preparing all sorts of potentially useful stuff in
@@ -72,11 +74,14 @@ they could dedicate the efforts of one or two of the team members to just discov
 role in the qualifying round, if not in the final, as adding two phrases to my solver about mid-contest resulted in a significant
 improvement in my scores. Having more would have been even better.
 
+I never bothered with a decent visualizer, settling for a very simple ASCII one similar to what I did in 2012. Worked well for me both times.
+
 I spent much of the last few hours of the contest simply gathering stats on my submissions to evaluate the different algos
 and put together the best solutions for all the qualifying problems. Thankfully, the organizers' web service provided a
 complete list of submitted solutions, as I managed to misplace some of the early ones that actually turned out to be quite
 good, and thanks to my rather messy usage of `git` I would've had a hard time reproducing those from scratch. That was likely
-worth a bunch of points to me.
+worth a bunch of points to me. I also spent some time on optimizations, involving stuff like string concatenation, better and faster
+tracking of nukable rows etc.
 
 Unfortunately, my final submission is unable to monitor and control its own memory consumption, and cannot utilize multiple
 cores if available, but as I don't expect to get into the finals that doesn't really matter.
