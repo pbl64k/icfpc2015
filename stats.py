@@ -1,3 +1,4 @@
+import copy
 import json
 import sys
 
@@ -12,15 +13,18 @@ data = json.loads(f.read())
 ids = {}
 tag_ids = {}
 pending = []
+best = {}
 
 for x in data:
     id = x['problemId']
     if id not in ids:
         ids[id] = {}
+        best[id] = {}
     seed = x['seed']
     sc = x['score']
     if seed not in ids[id] or (sc is not None and ((ids[id][seed] is None and sc > 0) or ids[id][seed] < sc)):
         ids[id][seed] = sc
+        best[id][seed] = x
     if sc is None:
         pending.append((id, seed, x['tag']))
     if x['tag'][0:len(tag)] == tag:
@@ -31,11 +35,16 @@ for x in data:
 
 ps = []
 
+bestl = []
+
 for id in ids:
     print 'Problem', id
     bsum = 0.0
     ssum = 0.0
     for seed in ids[id]:
+        b = copy.deepcopy(best[id][seed])
+        b['tag'] = 'BEST:' + str(b['tag'])
+        bestl.append(b)
         print ids[id][seed],
         bsum += ids[id][seed]
         if id in tag_ids and seed in tag_ids[id]:
@@ -58,4 +67,7 @@ print '*** PENDING ****'
 
 for x in pending:
     print x
+
+ff = open('best.txt', 'w')
+ff.write(json.dumps(bestl))
 
