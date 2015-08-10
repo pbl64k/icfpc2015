@@ -75,4 +75,7 @@ complete list of submitted solutions, as I managed to misplace some of the early
 good, and thanks to my rather messy usage of git I would've had a hard time reproducing those from scratch. That was likely
 worth a bunch of points to me.
 
+Unfortunately, my final submission is unable to monitor and control its memory consumption, and cannot utilize multiple
+cores if available, but as I don't expect to get into the finals that doesn't really matter.
+
 All in all, solid fun, okay performance -- I met my minimum goal of getting into the top 50, but could've been better.
