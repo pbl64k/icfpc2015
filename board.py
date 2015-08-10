@@ -9,13 +9,13 @@ class Board(object):
         self.w = w
         self.h = h
         size = w * h
-        self.medium = size > 128
+        #self.medium = size > 128
         self.large = size > 256
         self.dbg = dbg
         self.nukable = []
         self.brd = [[False for y in range(self.w)] for x in range(self.h)]
         self.fill = [0 for ix in range(self.h)]
-        #self.tot_parts = self.h
+        self.tot_parts = self.h
         #self.parts = [1 for ix in range(self.h)]
         self.merge_score = None
         for pos in f:
@@ -29,14 +29,14 @@ class Board(object):
         self.fill[y] += 1
         if self.fill[y] == self.w:
             self.nukable.append(y)
-        #l = self.validp((x - 1, y))
-        #r = self.validp((x + 1, y))
-        #if l and r:
-        #    self.tot_parts += 1
-        #    #self.parts[y] += 1
-        #elif not l and not r:
-        #    self.tot_parts -= 1
-        #    #self.parts[y] -= 1
+        l = self.validp((x - 1, y))
+        r = self.validp((x + 1, y))
+        if l and r:
+            self.tot_parts += 1
+            #self.parts[y] += 1
+        elif not l and not r:
+            self.tot_parts -= 1
+            #self.parts[y] -= 1
 
     def repr(self):
         return map(lambda x: map(lambda y: '*' if y else ' ', x), self.brd)
@@ -50,7 +50,7 @@ class Board(object):
         return x >= 0 and x < self.w and y >= 0 and y < self.h and not self.get(x, y)
 
     def merge(self, pc):
-        #tp = self.tot_parts
+        tp = self.tot_parts
         self.merge_score = 0
         crds = set(pc.coords())
         ns = set()
@@ -65,7 +65,7 @@ class Board(object):
         for nspos in ns:
             if not self.validp(nspos):
                 self.merge_score += 1
-        #self.merge_score += tp - self.tot_parts
+        self.merge_score += tp - self.tot_parts
 
     def nuke(self):
         remd = 0

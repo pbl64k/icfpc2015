@@ -135,7 +135,7 @@ class Game(object):
                 return ''.join(s)
         return ''.join(s)
 
-    # TODO locn6 looks like a champ for now
+    # TODO I no longer know what looks like a champ here.
 
     # TODO score: piece-local depth/partitioning
     # TODO cutoff on successful phrases if no stuff around?
@@ -152,8 +152,8 @@ class Game(object):
                 if not valid:
                     continue
                 if plen > 0:
-                    if g2.b.medium:
-                        g2.score += plen if g2.b.large else 1
+                    if g2.b.large:
+                        g2.score += plen
                 if locks:
                     g2score = g2.search_score()
                     #if best is None or (g2.score > best[1].score or (g2.score == best[1].score and list(reversed(g2.b.fill)) > list(reversed(best[1].b.fill)))):
