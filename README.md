@@ -11,6 +11,8 @@ The problem wasn't particularly interesting, as it boiled down to just solving T
 Compared to 2013, there were live leaderboards, a story to surround the problem, and "quest" elements in that teams had to go
 looking for "phrases of power" essential for good standings.
 
+The final qualifying scores can be found here: http://icfpcontest.org/leader_board.html
+
 I ended up at #37 in the qualifiers, which makes getting into the finals unlikely. My finest hour was at T-36, when I was
 ranked fifth (see `my-finest-hour.png`). Unfortunately, I didn't manage to submit anything for the lightning round. If only I had spent
 less time procrastinating and mulling over how much the problem sucked, how tired I was, and how I had no idea as to how to
@@ -44,7 +46,8 @@ wanted to tinker with something like partition refinement and relatives but foun
 for evaluating a given position.
 
 So I tried a variety of value functions, ranging from simply attempting to maximize the reachability of the board cells from the starting position (but
-reachability is a vague term, especially when we're considering more sophisticated multi-cell pieces), and eventually
+reachability is a vague term, especially when we're considering more sophisticated multi-cell pieces) to various tricks
+intended to minimize the partitioning of the empty cells on the board into disconnected components, and eventually
 got to the point where I would simply consider:
 
 1. Placing pieces lower to be a good thing.
@@ -54,7 +57,7 @@ got to the point where I would simply consider:
 This is pretty much what my final submission does.
 
 All my attempts to incorporate phrases of power into scoring resulted in suboptimal outcomes, as the solver would start to try stuffing as many phrases
-as possible into the solution, with rather debilitating results to the packing efficiency, so I just relied on BFS getting
+as possible into the solution, with rather debilitating effects on the packing efficiency, so I just relied on BFS getting
 the phrases of power into solutions naturally.
 
 Apart from the phrase listed in the original specification ("ei!") and the three phrases found in the 
@@ -69,13 +72,13 @@ they could dedicate the efforts of one or two of the team members to just discov
 role in the qualifying round, if not in the final, as adding two phrases to my solver about mid-contest resulted in a significant
 improvement in my scores. Having more would have been even better.
 
-I spent much of the last few hours on the contest simply gathering stats on my submissions to evaluate the different algos
-and put together the best solutions for all the qualifying problems. Thankfully, the organizer's web service provided a
+I spent much of the last few hours of the contest simply gathering stats on my submissions to evaluate the different algos
+and put together the best solutions for all the qualifying problems. Thankfully, the organizers' web service provided a
 complete list of submitted solutions, as I managed to misplace some of the early ones that actually turned out to be quite
-good, and thanks to my rather messy usage of git I would've had a hard time reproducing those from scratch. That was likely
+good, and thanks to my rather messy usage of `git` I would've had a hard time reproducing those from scratch. That was likely
 worth a bunch of points to me.
 
-Unfortunately, my final submission is unable to monitor and control its memory consumption, and cannot utilize multiple
+Unfortunately, my final submission is unable to monitor and control its own memory consumption, and cannot utilize multiple
 cores if available, but as I don't expect to get into the finals that doesn't really matter.
 
-All in all, solid fun, okay performance -- I met my minimum goal of getting into the top 50, but could've been better.
+All in all, solid fun, okay performance -- I met my minimum goal of getting into the top 50 -- but could've been better. Oh well, till next time.
