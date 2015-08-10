@@ -135,7 +135,6 @@ class Game(object):
                 return ''.join(s)
         return ''.join(s)
 
-    # TODO stats
     # TODO power depending on size
     # TODO totparts
     # TODO score: piece-local depth/partitioning

@@ -29,13 +29,29 @@ for x in data:
         if seed not in tag_ids[id] or (sc is not None and ((tag_ids[id][seed] is None and sc > 0) or tag_ids[id][seed] < sc)):
             tag_ids[id][seed] = sc
 
+ps = []
+
 for id in ids:
     print 'Problem', id
+    bsum = 0.0
+    ssum = 0.0
     for seed in ids[id]:
         print ids[id][seed],
+        bsum += ids[id][seed]
         if id in tag_ids and seed in tag_ids[id]:
             print '(' + str(tag_ids[id][seed]) + ')',
+            ssum += tag_ids[id][seed]
+    n = len(ids[id])
     print
+    print 'Average:', (bsum / n), ('' if ssum == 0.0 else ('(' + str(ssum / n) + ')'))
+    if ssum > 0.0:
+        p = ssum / bsum * 100
+        print 'Percentage:', ('%.1f%%' % p)
+        ps.append(p)
+    print
+
+if len(ps) > 0:
+    print 'PERCENTAGE:', ('%.1f%%' % (sum(ps) / len(ps)))
     print
 
 print '*** PENDING ****'
