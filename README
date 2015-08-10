@@ -1,1 +1,34 @@
-Unh.
+The solution is written in Python 2.7, and is intended to run on
+PyPy. While it should run without any large changes on alternate
+compliant implementations (CPython, presumably), it will suffer
+a severe performance hit. While I haven't performed thorough
+benchmarking, a version of this algorithm was running 3x slower
+even on small instances when executing under CPython. Judging by
+my past experiences, the performance loss would be even greater
+on larger instances.
+
+Installing PyPy on Ubuntu LTS should be trivial, as it's in the
+packages, and should be the same 2.2.1 I'm using. Similarly for
+most other reasonable distros. Version differences shouldn't
+affect anything much.
+
+Seeing as there's no compiled binary, makefile simply makes
+sure `play_icfp2015' is executable. It is a bash script that
+runs the actual solver.
+
+If you need to use CPython, please change `pypy' in
+`play_icfp2015' to whatever binary should be used as interpreter
+instead (`python', presumably).
+
+Unfortunately, my implementation ignores the -m flag, and will
+likely bomb if severely restricted memory-wise. Similarly with
+-c, but that should be less important, as my implementation is
+perfectly capable of utilizing one core, and I don't expect
+the organizers to be evil enough to try and run our solver on
+non-positive number of cores. I might be mistaken there,
+though.
+
+Running without the `--nodebug' flag will produce a simple
+ASCII representation of the playing field illustrating the
+solver's progress.
+
