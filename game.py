@@ -145,11 +145,6 @@ class Game(object):
                 return ''.join(s)
         return ''.join(s)
 
-    # TODO I no longer know what looks like a champ here.
-
-    # TODO score: piece-local depth/partitioning
-    # TODO cutoff on successful phrases if no stuff around?
-    # TODO stop looking if clears a row? probably not worth it.
     def solve_piece(self):
         fr = [(StSt(), self)]
         excl = set()

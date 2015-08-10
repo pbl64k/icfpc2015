@@ -2,6 +2,7 @@ import utils
 
 from ui import *
 
+ns_all = utils.ns
 ns_hextris = utils.ns_hextris
 
 class Board(object):
@@ -49,23 +50,44 @@ class Board(object):
         x, y = pos
         return x >= 0 and x < self.w and y >= 0 and y < self.h and not self.get(x, y)
 
+    def validp2(self, pos):
+        x, y = pos
+        if y < 0: return True
+        return x >= 0 and x < self.w and y < self.h and not self.get(x, y)
+
     def merge(self, pc):
         tp = self.tot_parts
         self.merge_score = 0
-        crds = set(pc.coords())
-        ns = set()
+        ns = []
         for pos in pc.coords():
             x, y = pos
             #assert not self.get(x, y)
-            for nspos in ns_hextris(pos):
-                if nspos not in crds:
-                    ns.add(nspos)
+            for nspos in ns_all(pos):
+                ns.append(nspos)
             self.merge_score += y
             self.set(x, y, True)
         for nspos in ns:
-            if not self.validp(nspos):
+            if not self.validp2(nspos):
                 self.merge_score += 1
         self.merge_score += tp - self.tot_parts
+
+    #def merge(self, pc):
+    #    tp = self.tot_parts
+    #    self.merge_score = 0
+    #    crds = set(pc.coords())
+    #    ns = set()
+    #    for pos in pc.coords():
+    #        x, y = pos
+    #        #assert not self.get(x, y)
+    #        for nspos in ns_hextris(pos):
+    #            if nspos not in crds:
+    #                ns.add(nspos)
+    #        self.merge_score += y
+    #        self.set(x, y, True)
+    #    for nspos in ns:
+    #        if not self.validp(nspos):
+    #            self.merge_score += 1
+    #    self.merge_score += tp - self.tot_parts
 
     def nuke(self):
         remd = 0
