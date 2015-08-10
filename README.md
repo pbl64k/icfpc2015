@@ -12,7 +12,7 @@ solve the goddamn problem, I feel I would've had a good chance to compete for th
 twelve hours off that result was far from impossible.
 
 Anyway, I progressed through a bunch of different solvers, but all of those were based on the same basic DFS/BFS algo. All my
-solver considered just the current piece, and ignored the global optimization. Phrases of power were treated as atomic moves,
+solvers considered just the current piece, and ignored the global optimization. Phrases of power were treated as atomic moves,
 and despite the fact that I didn't have the proper scoring of phrases throughout the contest, my solvers were quite good at
 generating those.
 
@@ -33,7 +33,7 @@ This is pretty much what my final submission does.
 All attempts to incorporate phrases of power into scoring resulted in suboptimal outcomes, so I just relied on BFS getting
 the phrases of power into solutions naturally.
 
-Apart from the phrase listed in the original specification ("ei!") and three phrases listed in the qualification problem
+Apart from the phrase listed in the original specification ("ei!") and the three phrases listed in the qualification problem
 initial positions ("ia! ia!", "r'lyeh", "yuggoth") I only managed to discover two other phrases related to the original
 Cthulhu Mythos -- "necronomicon" and "yogsothoth". The rest of the phrases seemed to be related to the Extended Mythos
 that I'm not familiar with. So even with the hints in the official twitter I felt I had little chance to discover those.
