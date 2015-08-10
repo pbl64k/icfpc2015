@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=ptP0OR-e7rI
 
 This contest sucked. I enjoyed it. In that sense, it was similar to the 2013 contest -- well, much better than that godawful disaster,
 but distinctly inferior to some of the seriously awesome past contests, such as those held in 2011 and 2014.
-The problem wasn't particularly interesting, as it was just solving Tetris on a board with hexagonal tiles (think honeycomb), with a few bells and whistles.
+The problem wasn't particularly interesting, as it boiled down to just solving Tetris on a board with hexagonal tiles (think honeycomb), with a few bells and whistles.
 Compared to 2013, there were live leaderboards, a story to surround the problem, and "quest" elements in that teams had to go
 looking for "phrases of power" essential for good standings.
 
