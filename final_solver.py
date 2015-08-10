@@ -35,7 +35,7 @@ if args.t is not None:
     deadline = started_on + tlimit
 
 if args.p is not None:
-    pops = map(lambda x: x.lower(), args.p)
+    pops = map(lambda x: x.lower(), filter(lambda x: len(x) <= 15, args.p))
     pops.sort(key = len, reverse = True)
     game.moves = pops + game.moves
 
