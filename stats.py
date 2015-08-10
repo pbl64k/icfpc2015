@@ -43,7 +43,7 @@ for id in ids:
     ssum = 0.0
     for seed in ids[id]:
         b = copy.deepcopy(best[id][seed])
-        b['tag'] = 'BEST:' + str(b['tag'])
+        b['tag'] = 'FINAL:' + str(b['tag'])
         bestl.append(b)
         print ids[id][seed],
         bsum += ids[id][seed]
